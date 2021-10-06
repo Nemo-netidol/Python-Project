@@ -3,7 +3,6 @@ from tkinter import *
 import os
 from tkinter import ttk
 
-
 def mainpagedestroy():
    main_page0.destroy()
 
