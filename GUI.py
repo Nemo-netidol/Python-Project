@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 
 top = Tk()
-top.geometry("1050x720")
+top.geometry("1170x730")
 top.title("Utility GUI Calculator")
 # top.config(bg='#e7e8d1')
 
@@ -455,8 +455,7 @@ weightbox.configure(state='disabled')
 actlabel = Label(frame2mid_4, text='Activity ', font=("Times New Roman", 15))
 actlabel.grid(row=0, column=2)
 actbox = ttk.Combobox(frame2mid_4, values=["Little to no exercise", "light exercise 1-3 days / week",
-                                           "Moderate exercise 3-5 days / week", " Heavy exercise 6-7 days"
-                                                                                " / week"], width=40, state="readonly")
+                                           "Moderate exercise 3-5 days / week", "Heavy exercise 6-7 days/ week"], width=40, state="readonly")
 actbox.set("Please select your lately activity")
 actbox.grid(row=0, column=3)
 
@@ -481,10 +480,14 @@ tdeebox.grid(row=0, column=3, padx=7)
 tdee.set("")
 
 def calme():
-    if male.get() or female.get() == 1:
+    if male.get() ==1 :
         answer1 = 88.362 + (13.397 * weight.get()) + (4.799 * height.get()) - (5.677 * age.get())
         bmrbox.delete(0, END)
         bmrbox.insert(0, f'{answer1: .2f}')
+    elif female.get() == 1:
+        answer2 = 447.593 + (9.247 * weight.get()) + (3.098 * height.get()) - (4.330 * age.get())
+        bmrbox.delete(0, END)
+        bmrbox.insert(0, f'{answer2: .2f}')
 
     answer1 = 88.362 + (13.397 * weight.get()) + (4.799 * height.get()) - (5.677 * age.get())
     a1 = answer1 * 1.2
@@ -492,24 +495,52 @@ def calme():
     a3 = answer1 * 1.55
     a4 = answer1 * 1.725
 
-    if actbox.get() == 'Little to no exercise':
+    if actbox.get() == "Little to no exercise" and male.get() == 1:
             tdeebox.delete(0, END)
-            tdeebox.insert(0, f'{a1: .2f}')
-    elif actbox.get() == 'light exercise 1-3 days / week':
+            tdeebox.insert(0, f'{answer1 * 1.2: .2f}')
+            bmrbox.delete(0, END)
+            bmrbox.insert(0, f'{answer1: .2f}')
+    elif actbox.get() == "Little to no exercise" and female.get() == 1:
             tdeebox.delete(0, END)
-            tdeebox.insert(0, f'{a2: .2f}')
-    elif actbox.get() == 'Moderate exercise 3-5 days / week':
+            tdeebox.insert(0, f'{answer2 * 1.2: .2f}')
+            bmrbox.delete(0, END)
+            bmrbox.insert(0, f'{answer2: .2f}')
+    elif actbox.get() == "light exercise 1-3 days / week" and male.get() == 1:
             tdeebox.delete(0, END)
-            tdeebox.insert(0, f'{a3 * 1.55: .2f}')
-    elif actbox.get() == 'Heavy exercise 6-7 days" " / week"':
+            tdeebox.insert(0, f'{answer1 * 1.375: .2f}')
+            bmrbox.delete(0, END)
+            bmrbox.insert(0, f'{answer1: .2f}')
+    elif actbox.get() == "light exercise 1-3 days / week" and female.get() == 1:
             tdeebox.delete(0, END)
-            tdeebox.insert(0, f'{a4 * 1.725: .2f}')
+            tdeebox.insert(0, f'{answer2 * 1.375: .2f}')
+            bmrbox.delete(0, END)
+            bmrbox.insert(0, f'{answer2: .2f}')
+    elif actbox.get() == "Moderate exercise 3-5 days / week" and male.get() == 1:
+            tdeebox.delete(0, END)
+            tdeebox.insert(0, f'{answer1 * 1.55: .2f}')
+            bmrbox.delete(0, END)
+            bmrbox.insert(0, f'{answer1: .2f}')
+    elif actbox.get() == "Moderate exercise 3-5 days / week" and female.get() == 1:
+            tdeebox.delete(0, END)
+            tdeebox.insert(0, f'{answer2 * 1.55: .2f}')
+            bmrbox.delete(0, END)
+            bmrbox.insert(0, f'{answer2: .2f}')
+    elif actbox.get() == "Heavy exercise 6-7 days/ week" and male.get() == 1:
+            tdeebox.delete(0, END)
+            tdeebox.insert(0, f'{answer1 * 1.725: .2f}')
+            bmrbox.delete(0, END)
+            bmrbox.insert(0, f'{answer1: .2f}')
+    elif actbox.get() == "Heavy exercise 6-7 days/ week" and female.get() == 1:
+            tdeebox.delete(0, END)
+            tdeebox.insert(0, f'{answer2 * 1.725: .2f}')
+            bmrbox.delete(0, END)
+            bmrbox.insert(0, f'{answer2: .2f}')
 
 
-    elif female.get() == 1:
-        answer2 = 447.593 + (9.247 * weight.get()) + (3.098 * height.get()) - (4.330 * age.get())
-        bmrbox.delete(0, END)
-        bmrbox.insert(0, f'{answer2: .2f}')
+    # elif female.get() == 1:
+    #     answer2 = 447.593 + (9.247 * weight.get()) + (3.098 * height.get()) - (4.330 * age.get())
+    #     bmrbox.delete(0, END)
+    #     bmrbox.insert(0, f'{answer2: .2f}')
 
 
 
@@ -570,17 +601,8 @@ def scorecal():
         patgo = (int(patget.get())) * 50
         pat2go = (int(pat2get.get())) * 40
         allsum = gatgo + patgo + pat2go
+        sentry.delete(0, END)
         sentry.insert(0, f'{allsum: .2f}')
-
-    # #
-    # # sentry.delete(0, END)
-    # # gatgo = (int(gatget.get()))*10
-    # # patgo = (int(patget.get()))*50
-    # # pat2go = (int(pat2get.get()))*40
-    #
-    # allsum = gatgo + patgo + pat2go
-    #
-    # sentry.insert(0, f'{allsum: .2f}')
 
 def delscore():
     sentry.delete(0,  END)
@@ -603,61 +625,73 @@ frame3.pack(side=LEFT, padx=5)
 frameshape = LabelFrame(frame3, width=500, height=500, text="Geometry Area Calculator", fg='#D99D31', font='3')
 frameshape.pack(padx=5, ipadx=5)
 
-# Label(frameshape, text="I'm here").pack()
+
 
 def shapeselecter():
-    if shapeselect.get() == "Square":
+    if shapeselect.get() == "Select the Geometry shape":
         widthentry.configure(state='disabled')
         heightentry.configure(state='disabled')
         baseentry.configure(state='disabled')
         lengthentry.configure(state='disabled')
         radiusentry.configure(state='disabled')
+        
 
 def shapecal():
+    textlol = "insert some value to make a calculation"
     if shapeselect.get() == "Square" and widthentry.get() == '':
-        textlol = " insert some  value to make a calculation"
+        textlol = " insert some value to make a calculation"
         ansentry.delete(0, END)
         ansentry.insert(0, textlol)
     elif shapeselect.get() == "Square":
-        ans1 = int(widthentry.get())*2
+        ans1 = int(widthentry.get())*int(widthentry.get())
         ansentry.delete(0, END)
         ansentry.insert(0, ans1)
-    elif shapeselect.get() == "Triangle" and baseentry.get() == '' or heightentry.get() == '':
-        textlol = " insert some  value to make a calculation"
+
+
+    elif shapeselect.get() == "Triangle" and baseentry.get() == '' and heightentry.get() == '':
+        textlol = " insert some value to make a calculation!!!"
         ansentry.delete(0, END)
         ansentry.insert(0, textlol)
     elif shapeselect.get() == "Triangle":
         ans2 = int(baseentry.get()) * int(heightentry.get()) * 1/2
         ansentry.delete(0, END)
         ansentry.insert(0, ans2)
+
+
     elif shapeselect.get() == "Circle" and radiusentry.get() == '':
-        textlol = " insert some  value to make a calculation"
+        textlol = " insert some value to make a calculation"
         ansentry.delete(0, END)
         ansentry.insert(0, textlol)
     elif shapeselect.get() == "Circle":
         ans3 = 22/7 * (int(radiusentry.get()))**2
+        ans31 = f'{ans3: .2f}'
         ansentry.delete(0, END)
-        ansentry.insert(0, ans3)
+        ansentry.insert(0, ans31)
+
+
     elif shapeselect.get() == "Cylinder" and radiusentry.get() == '' or heightentry.get() == '':
-        textlol = " insert some  value to make a calculation"
+        textlol = "insert some value to make a calculation"
         ansentry.delete(0, END)
         ansentry.insert(0, textlol)
     elif shapeselect.get() == "Cylinder":
-        ans4 = 2*22/7 * (int(radiusentry.get()))**2 + (int(heightentry.get())*(22/7*radiusentry.get()))
+        ans4 = int(2*22/7) * (int(radiusentry.get()))**2 + (int(heightentry.get()) * int(int(22/7)*radiusentry.get()))
         ansentry.delete(0, END)
         ansentry.insert(0, ans4)
+       
     elif shapeselect.get() == "Cube" and widthentry.get() == '':
-        textlol = " insert some  value to make a calculation"
+        textlol = " insert somevalue to make a calculation"
         ansentry.delete(0, END)
-        ansentry.insert(0, textlol)
+        insert = ansentry.insert(0, textlol)
     elif shapeselect.get() == "Cube":
         ans4 = 6*(int(widthentry.get()))**2
         ansentry.delete(0, END)
         ansentry.insert(0, ans4)
     elif shapeselect.get() == "Select the Geometry shape":
         ansentry.configure(state='disabled')
-
-
+    elif shapeselect.get() == "Circle":
+        ansnew = 22/7 * int((radiusentry.get())**2)
+        ansentry.delete(0, END)
+        ansentry.insert(0, ansnew)
 
 
 shapearea1 = Frame(frameshape)
@@ -668,6 +702,8 @@ shapeselect = ttk.Combobox(shapearea1,
                            ='center')
 shapeselect.pack(padx=5, pady=8)
 shapeselect.current(0)
+
+
 
 shapearea2 = Frame(frameshape)
 shapearea2.pack(pady=10)
